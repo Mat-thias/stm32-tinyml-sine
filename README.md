@@ -1,7 +1,3 @@
-Here's your updated README.md with clear reference to the requirements.txt file and a few consistency improvements:
-
-README.md (Updated)
-
 # STM32 TinyML Sine Wave Approximation
 
 This project demonstrates how to train a lightweight machine learning model to approximate the sine function using TensorFlow and deploy it on an STM32 microcontroller using PlatformIO to control the onboard LED in a sinusoidal pattern. It serves as a minimal example of how TinyML can be applied to real-world embedded systems with constrained resources.
@@ -129,7 +125,3 @@ Deployment (STM32):
 * STM32Cube HAL
 * TensorFlow Lite for Microcontrollers
 * C++17
-
----
-
-Let me know if you'd like me to push this directly to your repo or help create the requirements.txt content.
