@@ -1,5 +1,3 @@
-Great! Here’s a detailed and well-structured README.md template that covers all the suggested areas for your stm32-tinyml-sine project:
-
 README.md
 
 # STM32 TinyML Sine Wave Approximation
@@ -42,7 +40,7 @@ If you want to retrain the model:
 * Open the development notebook in Google Colab or locally.
 * Run all cells to train the sine model and export a .tflite file.
 
-The resulting TFLite model will be saved and copied into the deployment directory.
+The resulting TFLite model will be saved and copied the deployment include directory in the C .h format.
 
 ### 3. Set Up STM32 Development Environment
 
@@ -50,7 +48,6 @@ Ensure you have the following installed:
 
 * PlatformIO (can be used as VS Code extension)
 * STM32CubeProgrammer (for flashing)
-* Python (for any pre-processing)
 * Git
 
 ### 4. Configure the Board
@@ -58,11 +55,27 @@ Ensure you have the following installed:
 This project targets STM32F103C8T6 ("Blue Pill"). Ensure platformio.ini is set correctly:
 
 ```ini
-[env:bluepill_f103c8]
+[env:nucleo_l476rg]
 platform = ststm32
-board = bluepill_f103c8
-framework = arduino
-build_flags = -O3
+framework = stm32cube
+board = nucleo_l476rg
+
+
+build_flags=
+    -Ilib/tflm_tree
+    -Ilib/tflm_tree/tensorflow
+    -Ilib/tflm_tree/tensorflow/lite
+    -Ilib/tflm_tree/tensorflow/lite/micro
+    
+    -Ilib/tflm_tree/third_party/flatbuffers/include
+    -Ilib/tflm_tree/third_party/gemmlowp
+    -Ilib/tflm_tree/third_party/kissfft
+    -Ilib/tflm_tree/third_party/ruy
+
+    -DTF_LITE_STATIC_MEMORY
+
+    -DNUCLEO_L476RG
+    -std=c++17
 ```
 
 ### 5. Build and Upload the Code
@@ -84,8 +97,7 @@ Ensure your board is connected and in bootloader mode.
 Example serial output:
 
 ```text
-Input: 0.785 | Predicted Sine: 0.707
-Input: 1.570 | Predicted Sine: 1.000
+sin(270°) = %-1.0000 - [15ms]
 ...
 ```
 
@@ -97,11 +109,3 @@ Input: 1.570 | Predicted Sine: 1.000
 * STM32 HAL (via Arduino/STM32duino or STM32Cube)
 * Python (for development scripts)
 * C++ (embedded firmware logic)
-
-## 📜 License
-
-This project is licensed under the MIT License. See the LICENSE file for details.
-
----
-
-Let me know if you’d like me to generate the README.md file directly for you.
