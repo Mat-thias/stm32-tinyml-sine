@@ -23,10 +23,6 @@
 
 #define UART_PRINT_BUFFER_SIZE 100
 
-// extern UART_HandleTypeDef huart2;
-
-// #define print(string) HAL_UART_Transmit(&huart2, (uint8_t *)string, strlen(string), HAL_MAX_DELAY)
-
 void init_GPIO_pins(void);
 void init_UART2(void);
 void init_TIM2(void);

@@ -7,6 +7,8 @@
 
 #define TENSOR_ARENA_SIZE   2 * 1024
 
+#define convert_sine_to_percentage(y) ((y - (-1)) * (100 / (1 - (-1))))
+
 // The necessary tensorflowlite-micro library 
 #include "tensorflow/lite/micro/micro_log.h"
 #include "tensorflow/lite/micro/system_setup.h"
@@ -26,12 +28,12 @@ int main(void) {
 
     const tflite::Model* model = tflite::GetModel(sine_model);
     if (model->version() != TFLITE_SCHEMA_VERSION) {
-        // print("The model version of %d does not match the version of the schema of version %d", model->version(), TFLITE_SCHEMA_VERSION);
+        UART_printf("The model version of %d does not match the version of the schema of version %d", model->version(), TFLITE_SCHEMA_VERSION);
     }
     
     tflite::MicroMutableOpResolver<2> resolver;
     if (resolver.AddFullyConnected() != kTfLiteOk || resolver.AddRelu() != kTfLiteOk) {
-        // print("Failed to add all the ops.");
+        UART_printf("Failed to add all the ops.");
         return -1;
     }
 
@@ -42,7 +44,7 @@ int main(void) {
     tflite::MicroInterpreter static_interpreter(model, resolver, tensor_arena, TENSOR_ARENA_SIZE);
     tflite::MicroInterpreter* interpreter = &static_interpreter;
     if (interpreter->AllocateTensors() != kTfLiteOk) {
-        // print("Failed to allocate tensors.\n");
+        UART_printf("Failed to allocate tensors.\n");
         return -1;
     }
 
@@ -57,14 +59,13 @@ int main(void) {
             input->data.f[0] = x;
 
             if (interpreter->Invoke() != kTfLiteOk) {
-                // print("Failed to invoke for sin(%d) deg", x);
+                UART_printf("Failed to invoke for sin(%d) deg", x);
                 continue;
             }
-            float y = input->data.f[0];
+            float y = output->data.f[0];
 
-            analogWrite((uint8_t) ((y + 1) * (100 / 2)));
-            // sprintf(buffer, "sin(%3d°) = %7.4f - [%ums]\n", i, y, (uint32_t)HAL_GetTick() - start_ms);
-            // print(buffer);
+            analogWrite((uint8_t)convert_sine_to_percentage(y));
+            UART_printf("sin(%3d°) = %7.4f - [%ums]\n", i, y, (uint32_t)HAL_GetTick() - start_ms);
         }
     }
 }
