@@ -1,6 +1,6 @@
 # STM32 TinyML Sine Wave Approximation
 
-This project demonstrates how to train a lightweight machine learning model to approximate the sine function using TensorFlow and deploy it on an STM32 microcontroller using PlatformIO to control the onboard LED in a sinusoidal pattern. It serves as a minimal example of how TinyML can be applied to real-world embedded systems with constrained resources.
+This project demonstrates how to train a lightweight machine learning model to approximate the sine function using Tensorflow/Tensorflow lite micro and deploy it on an STM32 microcontroller using PlatformIO to control the onboard LED in a sinusoidal pattern. It serves as a minimal example of how TinyML can be applied to real-world embedded systems with constrained resources.
 
 ## 🚀 Project Objective
 
