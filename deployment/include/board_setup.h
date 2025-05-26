@@ -5,7 +5,6 @@
 #include <string.h>
 #include <stdio.h>
 
-#ifdef NUCLEO_L476RG
 #include <stm32l4xx_hal.h>
 
 // Pin definition for led
@@ -18,8 +17,6 @@
 #define TX_PIN                      GPIO_PIN_2
 #define TX_PORT                     GPIOA
 #define UART2_PORT                  GPIOA
-
-#endif // NUCLEO_L476RG
 
 #define UART_PRINT_BUFFER_SIZE 100
 

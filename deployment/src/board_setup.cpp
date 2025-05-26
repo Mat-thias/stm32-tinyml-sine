@@ -81,8 +81,7 @@ void analogWrite(uint8_t percentage_bright) {
     __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, pulse);
 }
 
-
-
+// Allows for print over the UART using the printf format
 void UART_printf(const char* format, ...) {
 
     va_list args_list;
