@@ -64,10 +64,6 @@ int main(void) {
 
             analogWrite((uint8_t)convert_sine_to_percentage(y));
             UART_printf("sin(%3d°) = %7.4f - [%ums]\n", i, y, (uint32_t)HAL_GetTick() - start_ms);
-
-            // snprintf(c_str, sizeof(c_str), "666%f", y);
-            // print("wjjjjj\n", 7);
-            // print(c_str, sizeof(c_str));
         }
     }
 }
